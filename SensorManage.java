@@ -44,6 +44,8 @@ public class SensorManage extends AppCompatActivity implements SensorEventListen
 
     TextView title, count;
 
+    private Context mcontext = null;
+
     private SensorManager sensormanager;
     private Sensor Accelerometer;
     private int ShakeCount;
@@ -71,12 +73,16 @@ public class SensorManage extends AppCompatActivity implements SensorEventListen
         title = (TextView)findViewById(R.id.title);
         count = (TextView)findViewById(R.id.count);
 
+//        this.mcontext=getApplicationContext();
+
         sensormanager=(SensorManager)getSystemService(SENSOR_SERVICE);
         Accelerometer=(sensormanager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
 
         databaseManage=new DatabaseManage(this, dbName, null, dbVersion);
 
         backPressCloseHandler = new BackPressCloseHandler(this);
+
+        deviceUuid=((MainActivity)mcontext).getUniqueID(getApplicationContext());
 
     }
 
@@ -161,7 +167,7 @@ public class SensorManage extends AppCompatActivity implements SensorEventListen
         return locationManager(applicationContext);
     }
 
-    public String getUniqueID (Context applicationContext){
+    public String getUniqueID(Context applicationContext){
         return deviceUuid;
     }
 
